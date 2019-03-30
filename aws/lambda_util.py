@@ -57,6 +57,15 @@ def api_gateway_handler(event, context):
     body = parse_lambda_body(event['body'])
 
 
+def api_gateway_response(data=None, status=200):
+    if not data:
+        data = {}
+    return {
+        'statusCode': status,
+        'body': json.dumps(data)
+    }
+
+
 """
 event_with_files = {
     'body': '--fd22ddc7924e54c28e1b2ac1034417b5'
