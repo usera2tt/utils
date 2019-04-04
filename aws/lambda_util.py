@@ -16,8 +16,12 @@ def unpack_payload(payload):
 
 
 def unpack(record):
+    try:
+        data = json.loads(record['body'])
+    except json.decoder.JSONDecodeError:
+        data = record['body']
     return {
-        'data': json.loads(record['body']),
+        'data': data,
         'params': unpack_payload(record['messageAttributes'])
     }
 
@@ -36,6 +40,7 @@ def parse_lambda_body(body):
     body: event['body']
     body 는 query string 형식을 가진다.
     files 가 있다면 이 형식이 깨진다.
+    파일을 업로드 하려면 requests.post 의 data 값으로 넣어주자.
     """
     if type(body) == str:
         return dict(parse_qsl(body))
