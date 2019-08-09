@@ -40,9 +40,12 @@ class ImageManager:
         return im
 
     @staticmethod
-    def resize(im: Image, width):
-        size = min(width, min(im.size))
-        im = im.resize((size, size))
+    def resize(im: Image, width, height=None):
+        if not height:
+            height = width
+        w_size = min(width, im.size[0])
+        h_size = min(height, im.size[1])
+        im = im.resize((w_size, h_size))
         return im
 
     @staticmethod
