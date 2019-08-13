@@ -62,3 +62,7 @@ class ImageManager:
         del output
         encoded = base64.b64encode(hex_data)
         return encoded
+
+    @staticmethod
+    def gray_scaling(im: Image):
+        return im.convert('LA')
